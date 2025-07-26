@@ -12,7 +12,7 @@ DATA = {
   }
 }
 
-def newline(x=1)
+def newline(x=2)
   x.times { puts }
 end
 
@@ -49,16 +49,17 @@ player_name = prompt.ask("What is your name, adventurer?".colorize(:light_blue))
 
 DATA[:player][:name] = player_name
 
-newline(2)
+newline
 
 prompt.ok("Welcome, #{DATA[:player][:name]}!")
 
-newline(2)
+newline
 wait
 
-selection = prompt.select("What would you like to do?") do |menu|
-  menu.choice name: "Build an Adventure",  value: 'build'
-  menu.choice name: "Play a Game", value: 'play'
-end
+choices = { "build" => "Build an Adventure", "play" => "Play a Game"}
+selection = prompt.select("What would you like to do?", choices.invert)
 
-prompt.say("You chose to #{selection}.", color: :yellow)
+prompt.say("You chose to #{choices[selection]}.", color: :yellow)
+
+newline
+wait
